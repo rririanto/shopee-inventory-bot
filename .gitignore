@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+googledocs-749245db2dfa.json
+v1-old
+.DS_Store
