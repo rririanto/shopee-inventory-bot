@@ -148,7 +148,7 @@ def insert_gdocs():
     return False
 
 
-def hello(bot, update):
+def start(bot, update):
     update.message.reply_text(
         'Hello {}, ketik atau klik /update_stock_toko untuk mulai mengupdate toko'.format(
             update.message.from_user.first_name))
@@ -174,7 +174,7 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler('hello', hello))
+    dp.add_handler(CommandHandler('start', start))
     dp.add_handler(
         CommandHandler(
             'update_stock_toko',
