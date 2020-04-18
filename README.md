@@ -1,6 +1,6 @@
 # shopee-inventory-bot
 
-"I Make dropshiper's job easier" ~ shopee inventory bot
+"I Make dropshiper's job easier" ~ shopee inventory bot [Watch video demo](https://github.com/jimmyromanticdevil/shopee-inventory-bot/blob/master/demo_video.mp4)
 
 The idea inspired by my wife daily life as a dropshippers. In order to keep her store stock up-to-date, she did manual update for stocks from the suppliers store in shopee and it was quite exhausting because the more the items, the longer it takes to update them all. So as a loving husband, I came up with this simple idea to make her job easier. 
 
