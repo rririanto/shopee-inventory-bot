@@ -1,1 +1,3 @@
 # shopee-inventory-bot
+
+Soon...
