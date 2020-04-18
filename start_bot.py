@@ -1,3 +1,4 @@
+import logging
 import gspread
 from telegram.ext import Updater, CommandHandler
 from oauth2client.service_account import ServiceAccountCredentials
@@ -6,20 +7,19 @@ import requests
 import re
 from datetime import datetime
 
-#python-dotenv
+# python-dotenv
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 # Enable logging
-import logging
 logging.basicConfig(
     filename='bot.log',
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#get credential
+# get credential
 GOOGLE_CREDENTIALS = os.getenv('GOOGLE_CREDENTIALS')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
@@ -35,7 +35,7 @@ api_endpoint = {
     "next": "{}search_items/?by=relevancy&match_id={}&newest=0&order=desc&page_type=shop&__classic__=1",
 }
 
-#header for scrapper
+# header for scrapper
 headers = {
     "host": f"{hostname}:443",
     "Accept": "application/json",
@@ -59,9 +59,11 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning(f'Update {update} caused error {context.error}')
 
+
 def info(context):
     """Log Info"""
     logger.info(f'{context}')
+
 
 def telegraminfo(data, urlspread):
     now = datetime.now()
@@ -84,7 +86,8 @@ def telegraminfo(data, urlspread):
 
 
 def crawler_product(itemid, shopid):
-    product_url = api_endpoint["product_detail"].format(api_host, itemid, shopid)
+    product_url = api_endpoint["product_detail"].format(
+        api_host, itemid, shopid)
     page = requests.get(product_url, headers=headers, verify=True)
     data = page.json()['item']
     return data["name"], data["stock"]
@@ -136,7 +139,6 @@ def insert_gdocs():
                 if prev_stock != stock:
                     updateable.append([name, [stock, prev_stock]])
                     info(f"Update gsheets {name}")
-                    
                     sheet.update_cell(cell.row, cell.col + 4, stock)
             except BaseException:
                 pass
@@ -148,7 +150,8 @@ def insert_gdocs():
 
 def hello(bot, update):
     update.message.reply_text(
-        'Hello {}, ketik atau klik /update_stock_toko untuk mulai mengupdate toko'.format(update.message.from_user.first_name))
+        'Hello {}, ketik atau klik /update_stock_toko untuk mulai mengupdate toko'.format(
+            update.message.from_user.first_name))
 
 
 def update_stock_toko(bot, update, args):
