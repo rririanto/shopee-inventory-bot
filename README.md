@@ -14,7 +14,7 @@ The bot tasks are quite simple. Just type /update_stock_store on Telegram messag
 - requests `pip install requests`
 - python-dotenv `pip install python-dotenv`
 
-## Setup .env
+## Setup [.env](https://github.com/jimmyromanticdevil/shopee-inventory-bot/blob/master/.env)
 
 GOOGLE_CREDENTIALS => [Obtain OAuth2 credentials from Google Developers Console](http://gspread.readthedocs.org/en/latest/oauth2.html)
 
