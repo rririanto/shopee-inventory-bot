@@ -27,7 +27,7 @@ SPREADSHEET_NAME = os.getenv('SPREADSHEET_NAME')
 STORE_ID = os.getenv('STORE_ID')
 
 # Shopee API endpoint
-hostname = 'shopee.co.id'
+hostname = 'shopee.com.my'
 api_host = f"https://{hostname}/api/v2/"
 api_endpoint = {
     "user_detail": f"{api_host}shop/get?username={STORE_ID}",
@@ -77,7 +77,7 @@ def telegraminfo(data, urlspread):
 
     text += "\n*Note: Download link xlxs & lakukan mass upload di shopee seller:\n%s" % urlspread
     payload = {
-        'chat_id': "67469094",
+        'chat_id': TELEGRAM_CHAT_ID,
         'text': text,
         'parse_mode': 'HTML'
     }
@@ -123,11 +123,11 @@ def insert_gdocs():
         try:
             amount_re = re.compile(r'%s*' % name, re.IGNORECASE)
             cell = sheet.find(amount_re)
-            prev_stock = sheet.cell(cell.row, cell.col + 4).value
+            prev_stock = sheet.cell(cell.row, cell.col + 6).value
             if prev_stock != stock:
                 updateable.append([name, [stock, prev_stock]])
                 info(f"Update gsheets {name}")
-                sheet.update_cell(cell.row, cell.col + 4, stock)
+                sheet.update_cell(cell.row, cell.col + 6, stock)
         except BaseException:
             try:
                 name = re.compile(
@@ -135,11 +135,11 @@ def insert_gdocs():
                     flags=re.IGNORECASE | re.MULTILINE | re.LOCALE).search(name).group()
                 amount_re = re.compile(r'%s*' % name, re.IGNORECASE)
                 cell = sheet.find(amount_re)
-                prev_stock = sheet.cell(cell.row, cell.col + 4).value
+                prev_stock = sheet.cell(cell.row, cell.col + 6).value
                 if prev_stock != stock:
                     updateable.append([name, [stock, prev_stock]])
                     info(f"Update gsheets {name}")
-                    sheet.update_cell(cell.row, cell.col + 4, stock)
+                    sheet.update_cell(cell.row, cell.col + 6, stock)
             except BaseException:
                 pass
 
@@ -148,13 +148,13 @@ def insert_gdocs():
     return False
 
 
-def start(bot, update):
+def start(update, context):
     update.message.reply_text(
         'Hello {}, ketik atau klik /update_stock_toko untuk mulai mengupdate toko'.format(
             update.message.from_user.first_name))
 
 
-def update_stock_toko(bot, update, args):
+def update_stock_toko(update, context):
     update.message.chat_id
     update.message.reply_text(
         'Proses update sedang berlangsung. mohon tunggu sejenak. Terima Kasih')
@@ -168,7 +168,7 @@ def update_stock_toko(bot, update, args):
 def main():
     """Run bot."""
     info("Bot started")
-    updater = Updater(TELEGRAM_TOKEN)
+    updater = Updater(TELEGRAM_TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -178,8 +178,7 @@ def main():
     dp.add_handler(
         CommandHandler(
             'update_stock_toko',
-            update_stock_toko,
-            pass_args=True))
+            update_stock_toko))
 
     # log all errors
     dp.add_error_handler(error)
