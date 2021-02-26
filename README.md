@@ -39,6 +39,15 @@ python start_bot.py
 
 ```
 
+## Issues
+If the code is not working, you could check the bot.log in the directory and read the error.
+
+- gspread.exceptions.SpreadsheetNotFound or This operation is not supported for this document', 'status': 'FAILED_PRECONDITION'
+  please make sure you save the file as googlespreadsheet not as google drive. convert the spreadsheet by going to File> Save as Google Sheet.
+
+- caused error ('Unexpected credentials type', None, 'Expected', 'service_account')
+  please make sure to follow this step to create correct service acount. https://gspread.readthedocs.io/en/latest/oauth2.html
+
 ## Learn More
 
 You can learn more about telegram-bot in the [Here](https://medium.com/@arushsharma91/telegram-bot-from-the-first-line-to-deployment-83141129a573) and [Here](https://www.freecodecamp.org/news/learn-to-build-your-first-bot-in-telegram-with-python-4c99526765e4/) 
