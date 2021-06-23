@@ -38,13 +38,13 @@ api_endpoint = {
 # header for scrapper
 headers = {
     "host": f"{hostname}:443",
-    "Accept": "application/json",
     "Referer": f"https://{hostname}/{STORE_ID}",
     "Content-Type": "application/json",
     "Accept": "*/*",
     "Sec-Fetch-Mode": "no-cors",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36",
 }
+
 
 # Telegram settings
 telegram_api = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
