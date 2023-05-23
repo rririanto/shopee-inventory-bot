@@ -13,4 +13,4 @@ python_dotenv == 0.15.0
 python_telegram_bot == 13.3
 
 # shopee-inventory-bot/start_bot.py: 6
-requests == 2.25.1
+requests == 2.31.0
